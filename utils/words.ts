@@ -1,7 +1,8 @@
 interface WordItem {
-  english: string;
-  japanese: string;
+  english: string
+  japanese: string
 }
+
 export default class Words {
   static readonly wordList: WordItem[] = [
     { english: "able", japanese: "（～）できる" },
