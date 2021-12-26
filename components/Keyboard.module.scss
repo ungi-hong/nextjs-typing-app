@@ -1,0 +1,8 @@
+.keyList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  li:not(:last-of-type) {
+    margin-right: 10px;
+  }
+}

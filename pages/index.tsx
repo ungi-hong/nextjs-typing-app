@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
-import { Keyboard } from 'components/index'
+import type { NextPage } from "next"
+import { Keyboard } from "components/index"
 
 const Home: NextPage = () => {
   return (

@@ -1,20 +1,21 @@
-import KeysLayout from 'utils/keysLayout'
+import KeysLayout from "utils/keysLayout"
+import Key from "components/Key"
+import style from "components/Keyboard.module.scss"
 
 const Keyboard = () => {
-  console.log(KeysLayout.keysList)
   return (
     <>
       {KeysLayout.keysList.map((keyRow) => {
         return (
-          <tr key={keyRow.keysRowName}>
+          <ul className={style.keyList} key={keyRow.keysRowId}>
             {keyRow.keysRowItems.map((key) => {
               return (
-                <td key={key.keyName}>
-                  <p>{key.keyName}</p>
-                </td>
+                <li key={key.id}>
+                  <Key keyName={key.keyName} keyId={key.id} />
+                </li>
               )
             })}
-          </tr>
+          </ul>
         )
       })}
     </>

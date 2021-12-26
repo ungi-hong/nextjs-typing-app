@@ -1,89 +1,90 @@
 interface Key {
+  id: string
   keyName: string
 }
 
 interface keyRow {
+  keysRowId: string
   keysRowItems: Key[]
-  keysRowName: string
 }
 
 export default class KeysLayout {
   static readonly keysList: Array<keyRow> = [
     {
+      keysRowId: "firstRow",
       keysRowItems: [
-        { keyName: '1' },
-        { keyName: '2' },
-        { keyName: '3' },
-        { keyName: '4' },
-        { keyName: '5' },
-        { keyName: '6' },
-        { keyName: '7' },
-        { keyName: '8' },
-        { keyName: '9' },
-        { keyName: '0' },
-        { keyName: '-' },
-        { keyName: '^' },
-        { keyName: '¥' },
-        { keyName: 'DEL' }
+        { id: "key1", keyName: "1" },
+        { id: "key2", keyName: "2" },
+        { id: "key3", keyName: "3" },
+        { id: "key4", keyName: "4" },
+        { id: "key5", keyName: "5" },
+        { id: "key6", keyName: "6" },
+        { id: "key7", keyName: "7" },
+        { id: "key8", keyName: "8" },
+        { id: "key9", keyName: "9" },
+        { id: "key0", keyName: "0" },
+        { id: "key-", keyName: "-" },
+        { id: "key^", keyName: "^" },
+        { id: "key¥", keyName: "¥" },
+        { id: "keyDEL", keyName: "DEL" },
       ],
-      keysRowName: 'firstRow'
     },
     {
+      keysRowId: "secondRow",
       keysRowItems: [
-        { keyName: 'Q' },
-        { keyName: 'W' },
-        { keyName: 'E' },
-        { keyName: 'R' },
-        { keyName: 'T' },
-        { keyName: 'Y' },
-        { keyName: 'U' },
-        { keyName: 'I' },
-        { keyName: 'O' },
-        { keyName: 'P' },
-        { keyName: '@' },
-        { keyName: '[' },
-        { keyName: 'Enter' }
+        { id: "keyQ", keyName: "Q" },
+        { id: "keyW", keyName: "W" },
+        { id: "keyE", keyName: "E" },
+        { id: "keyR", keyName: "R" },
+        { id: "keyT", keyName: "T" },
+        { id: "keyY", keyName: "Y" },
+        { id: "keyU", keyName: "U" },
+        { id: "keyI", keyName: "I" },
+        { id: "keyO", keyName: "O" },
+        { id: "keyP", keyName: "P" },
+        { id: "key@", keyName: "@" },
+        { id: "key[", keyName: "[" },
+        { id: "keyENTER", keyName: "Enter" },
       ],
-      keysRowName: 'secondRow'
     },
     {
+      keysRowId: "thirdRow",
       keysRowItems: [
-        { keyName: 'A' },
-        { keyName: 'S' },
-        { keyName: 'D' },
-        { keyName: 'F' },
-        { keyName: 'G' },
-        { keyName: 'H' },
-        { keyName: 'J' },
-        { keyName: 'K' },
-        { keyName: 'L' },
-        { keyName: ';' },
-        { keyName: ':' },
-        { keyName: ']' }
+        { id: "keyA", keyName: "A" },
+        { id: "keyS", keyName: "S" },
+        { id: "keyD", keyName: "D" },
+        { id: "keyF", keyName: "F" },
+        { id: "keyG", keyName: "G" },
+        { id: "keyH", keyName: "H" },
+        { id: "keyJ", keyName: "J" },
+        { id: "keyK", keyName: "K" },
+        { id: "keyL", keyName: "L" },
+        { id: "key;", keyName: ";" },
+        { id: "key:", keyName: ":" },
+        { id: "key]", keyName: "]" },
       ],
-      keysRowName: 'thirdRow'
     },
     {
+      keysRowId: "fourthRow",
       keysRowItems: [
-        { keyName: 'Shift' },
-        { keyName: 'Z' },
-        { keyName: 'X' },
-        { keyName: 'C' },
-        { keyName: 'V' },
-        { keyName: 'B' },
-        { keyName: 'N' },
-        { keyName: 'M' },
-        { keyName: ',' },
-        { keyName: '.' },
-        { keyName: '/' },
-        { keyName: '_' },
-        { keyName: 'Shift' }
+        { id: "keyLeftShift", keyName: "Shift" },
+        { id: "keyZ", keyName: "Z" },
+        { id: "keyX", keyName: "X" },
+        { id: "keyC", keyName: "C" },
+        { id: "keyV", keyName: "V" },
+        { id: "keyB", keyName: "B" },
+        { id: "keyN", keyName: "N" },
+        { id: "keyM", keyName: "M" },
+        { id: "key,", keyName: "," },
+        { id: "key.", keyName: "." },
+        { id: "key/", keyName: "/" },
+        { id: "key_", keyName: "_" },
+        { id: "keyRightShift", keyName: "Shift" },
       ],
-      keysRowName: 'fourthRow'
     },
     {
-      keysRowItems: [{ keyName: '' }],
-      keysRowName: 'fifthRow'
-    }
+      keysRowId: "fifthRow",
+      keysRowItems: [{ id: "keySpaceBar", keyName: "" }],
+    },
   ]
 }
