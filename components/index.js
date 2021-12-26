@@ -1,1 +1,1 @@
-export { default as Keyboard } from "components/Keyboard";
+export { default as Keyboard } from 'components/Keyboard'

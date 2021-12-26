@@ -1,0 +1,20 @@
+{
+  "tabnine.experimentalAutoImports": true,
+  "editor.linkedEditing": true,
+  "editor.tabSize": 2,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "editor.formatOnSave": true,
+  "git.autofetch": true,
+  "bracket-pair-colorizer-2.depreciation-notice": false,
+  "files.autoSave": "onFocusChange",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.css": "css"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "prettier.semi": false,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
