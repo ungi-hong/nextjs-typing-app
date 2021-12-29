@@ -1,0 +1,37 @@
+.mistakeCharacter {
+  color: rgba(255, 0, 0, 1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: mistakeCharacter 0.5s linear 0s forwards;
+}
+
+.mistakeCurrentCharacter {
+  color: #eee;
+  transition: 0.3;
+}
+
+@keyframes mistakeCharacter {
+  0% {
+    transform: translate(-50%, -50%);
+    color: rgba(255, 0, 0, 1);
+  }
+  20% {
+    transform: translate(-70%, -50%);
+  }
+  40% {
+    transform: translate(-50%, -50%);
+  }
+  60% {
+    transform: translate(-30%, -50%);
+  }
+  80% {
+    transform: translate(-50%, -50%);
+    color: rgba(255, 0, 0, 0);
+  }
+  100% {
+    transform: translate(-70%, -50%);
+    color: rgba(255, 0, 0, 0);
+  }
+}
