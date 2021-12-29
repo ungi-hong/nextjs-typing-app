@@ -1,8 +1,12 @@
 import KeysLayout from "utils/keysLayout"
 import Key from "components/Key"
-import style from "components/Keyboard.module.scss"
+import style from "styles/Keyboard.module.scss"
 
-const Keyboard = () => {
+interface Props {
+  inputKey: string
+}
+
+const Keyboard: React.FC<Props> = ({ inputKey }) => {
   return (
     <>
       {KeysLayout.keysList.map((keyRow) => {
@@ -11,7 +15,12 @@ const Keyboard = () => {
             {keyRow.keysRowItems.map((key) => {
               return (
                 <li key={key.id}>
-                  <Key keyName={key.keyName} keyId={key.id} />
+                  <Key
+                    keyName={key.keyName}
+                    value={key.value}
+                    keyId={key.id}
+                    inputKey={inputKey}
+                  />
                 </li>
               )
             })}
