@@ -1,10 +1,10 @@
-interface WordItem {
+interface Word {
   english: string
   japanese: string
 }
 
-export default class Words {
-  static readonly wordList: WordItem[] = [
+export default class WordList {
+  static readonly words: Word[] = [
     { english: "able", japanese: "（～）できる" },
     { english: "appoint", japanese: "指名する" },
     { english: "believe", japanese: "信じる" },
@@ -1558,5 +1558,5 @@ export default class Words {
     { english: "you", japanese: "あなた" },
     { english: "young", japanese: "若い" },
     { english: "zero", japanese: "零" },
-  ];
+  ]
 }
