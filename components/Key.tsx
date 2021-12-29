@@ -1,19 +1,18 @@
 import style from "styles/Key.module.scss"
+import React from "react"
 
 interface Props {
   value: string
-  keyName: string
-  keyId: string
-  inputKey: string
+  onInputKey?: string
 }
 
-const Key: React.FC<Props> = ({ value, keyName, keyId, inputKey }) => {
+const Key = React.memo<Props>(({ value, onInputKey = "" }) => {
   const BtnClassNames = () => {
     const classNames = [style.key]
-    if (keyId === "keySpaceBar") {
+    if (value === " ") {
       classNames.push(style.keySpaceBar)
     }
-    if (inputKey === value) {
+    if (onInputKey === value) {
       classNames.push(style.onInputKey)
     }
     return classNames.join(" ")
@@ -21,9 +20,9 @@ const Key: React.FC<Props> = ({ value, keyName, keyId, inputKey }) => {
 
   return (
     <button className={BtnClassNames()} type="button">
-      {keyName}
+      {value.toUpperCase()}
     </button>
   )
-}
+})
 
 export default Key

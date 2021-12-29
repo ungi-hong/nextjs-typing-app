@@ -4,57 +4,62 @@ import MistakeCharacter from "components/MistakeCharacter"
 import style from "styles/WordContent.module.scss"
 
 interface Props {
-  inputKey: string
+  onInputKey: string
+  updateScoreCount: () => void
 }
 
-const WordContent: React.FC<Props> = ({ inputKey }) => {
+const WordContent: React.FC<Props> = ({ onInputKey, updateScoreCount }) => {
   const [JapaneseWord, setJapaneseWord] = useState("")
   const [englishWord, setEnglishWord] = useState("")
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [characterCurrentIndex, setCharacterCurrentIndex] = useState(0)
   const [isMistake, setIsMistake] = useState(false)
-  const [scoreCount, setScoreCount] = useState(0)
-  const [mistakeCharacters, setMistakeCharacters] = useState<string[]>([])
+  // cnst [mistakeCharacters, setMistakeCharacters] = useState<string[]>([])
   const [mistakeElements, setMistakeElements] = useState<JSX.Element[]>([])
-  // const [mistakeCount, setMistakeCount] = useState(0)
+  const [mistakeCount, setMistakeCount] = useState(0)
+  const [baseClass, setBaseClass] = useState<string[]>([style.currentCharacter])
 
   const onInputMistakeKey = useCallback(() => {
-    const NewMistakeCharacters = [...mistakeCharacters, inputKey]
-    NewMistakeCharacters.map((mistakeCharacter, index) => {
-      const NewMistakeElements = [
-        ...mistakeElements,
-        <MistakeCharacter key={index} mistakeCharacter={mistakeCharacter} />,
-      ]
-      setMistakeElements(NewMistakeElements)
-    })
-    setMistakeCharacters(NewMistakeCharacters)
-  }, [inputKey])
+    // MEMO: タイピングミスをした時
+    setIsMistake(true)
+    const NewMistakeElements = [
+      ...mistakeElements,
+      <MistakeCharacter key={mistakeCount} mistakeCharacter={onInputKey} />,
+    ]
+    setMistakeElements(NewMistakeElements)
+    setIsMistake(false)
+  }, [onInputKey])
+
+  const clearWord = () => {
+    // MEMO: 英単語をタイピングを終えた時
+    const randomWord =
+      WordList.words[Math.floor(Math.random() * WordList.words.length)]
+    setJapaneseWord(randomWord.japanese)
+    setEnglishWord(randomWord.english)
+    setCharacterCurrentIndex(0)
+    updateScoreCount()
+  }
 
   useEffect(() => {
-    // MEMO: キーが押されinputKeyが変更された時
-
-    if (!inputKey) {
-      console.log("are")
+    // MEMO: キーが押されonInputKeyが変更された時
+    if (!onInputKey) {
       return
     }
 
-    if (inputKey !== englishWord[currentIndex]) {
-      if (inputKey.length === 1) {
+    if (onInputKey !== englishWord[characterCurrentIndex]) {
+      setMistakeCount(mistakeCount + 1)
+      if (onInputKey.length === 1) {
         onInputMistakeKey()
       }
       return
     }
-    setMistakeElements([])
-    setMistakeCharacters([])
-    setCurrentIndex(currentIndex + 1)
 
-    if (englishWord.length === currentIndex + 1) {
-      const randomWord =
-        WordList.words[Math.floor(Math.random() * WordList.words.length)]
-      setJapaneseWord(randomWord.japanese)
-      setEnglishWord(randomWord.english)
-      setCurrentIndex(0)
+    setMistakeElements([])
+    setCharacterCurrentIndex(characterCurrentIndex + 1)
+
+    if (englishWord.length === characterCurrentIndex + 1) {
+      clearWord()
     }
-  }, [inputKey])
+  }, [onInputKey])
 
   useEffect(() => {
     const randomWord =
@@ -66,19 +71,21 @@ const WordContent: React.FC<Props> = ({ inputKey }) => {
   return (
     <div className={style.textContent}>
       <p>
-        <span className={`${style.wordText} ${style.clearCharacter}`}>
-          {englishWord.slice(0, currentIndex)}
+        <span className={style.clearCharacter}>
+          {englishWord.slice(0, characterCurrentIndex)}
         </span>
         <span
-          className={` ${style.currentCharacter} ${
+          className={`${style.currentCharacter} ${
             isMistake && style.mistakeCurrentCharacter
           }`}
         >
-          {englishWord[currentIndex]}
+          {englishWord[characterCurrentIndex]}
           {mistakeElements}
         </span>
 
-        <span>{englishWord.slice(currentIndex + 1, englishWord.length)}</span>
+        <span>
+          {englishWord.slice(characterCurrentIndex + 1, englishWord.length)}
+        </span>
       </p>
       <p>{JapaneseWord}</p>
     </div>

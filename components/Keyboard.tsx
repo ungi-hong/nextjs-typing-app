@@ -1,29 +1,54 @@
+import React from "react"
 import KeysLayout from "utils/keysLayout"
-import Key from "components/Key"
+import KeyItem from "components/Key"
 import style from "styles/Keyboard.module.scss"
-
-interface Props {
-  inputKey: string
+interface KeyItem {
+  id: string
+  value: string
 }
 
-const Keyboard: React.FC<Props> = ({ inputKey }) => {
+interface Props {
+  onInputKey: string
+}
+
+interface KeyLineProps {
+  onInputKey?: string
+  keyLine: KeyItem[]
+}
+
+const KeyLine = React.memo<KeyLineProps>(({ keyLine, onInputKey = "" }) => {
+  console.log(keyLine, onInputKey)
   return (
     <>
-      {KeysLayout.keysList.map((keyRow) => {
+      {keyLine.map((key) => {
         return (
-          <ul className={style.keyList} key={keyRow.keysRowId}>
-            {keyRow.keysRowItems.map((key) => {
-              return (
-                <li key={key.id}>
-                  <Key
-                    keyName={key.keyName}
-                    value={key.value}
-                    keyId={key.id}
-                    inputKey={inputKey}
-                  />
-                </li>
-              )
-            })}
+          <li key={key.id}>
+            {key.value === onInputKey ? (
+              <KeyItem value={key.value} onInputKey={onInputKey} />
+            ) : (
+              <KeyItem value={key.value} />
+            )}
+          </li>
+        )
+      })}
+    </>
+  )
+})
+
+const Keyboard: React.FC<Props> = ({ onInputKey }) => {
+  return (
+    <>
+      {KeysLayout.keys.map(({ keyLineId, keyItems }) => {
+        const keyItemsInclude = keyItems.some(
+          (keyItem) => keyItem.value === onInputKey
+        )
+        return (
+          <ul key={keyLineId} className={style.keyList}>
+            {keyItemsInclude ? (
+              <KeyLine keyLine={keyItems} onInputKey={onInputKey} />
+            ) : (
+              <KeyLine keyLine={keyItems} />
+            )}
           </ul>
         )
       })}
