@@ -1,21 +1,25 @@
 import { useState, useEffect, useCallback } from "react"
 import type { NextPage } from "next"
-import { Keyboard, WordContent, Score } from "components/index"
+import { Keyboard, WordContent, Score, Timer, Modal } from "components/index"
 import style from "styles/Home.module.scss"
 
 const Home: NextPage = () => {
   const [onInputKey, setInputKey] = useState("")
-  const [inputValue, setInputValue] = useState("")
+  const [isOpenModal, setIsOpenModal] = useState(false)
   const [scoreCount, setScoreCount] = useState(0)
+  // const [timer, setTimer] = useState(60)
   console.log(scoreCount)
 
-  const updateScoreCount = useCallback(() => {
+  const updateScoreCount = () => {
     setScoreCount(scoreCount + 1)
-  }, [setScoreCount])
+  }
+
+  const openModal = useCallback(() => {
+    setIsOpenModal(true)
+  }, [setIsOpenModal])
 
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
-      setInputValue((inputValue) => inputValue + e.key)
       setInputKey(e.key)
       setTimeout(() => {
         setInputKey("")
@@ -30,14 +34,18 @@ const Home: NextPage = () => {
     }
   }, [])
   return (
-    <main className={style.main}>
-      <Score scoreCount={scoreCount} />
-      <WordContent
-        onInputKey={onInputKey}
-        updateScoreCount={updateScoreCount}
-      />
-      <Keyboard onInputKey={onInputKey} />
-    </main>
+    <>
+      <main className={style.main}>
+        <Timer openModal={openModal} />
+        <Score scoreCount={scoreCount} />
+        <WordContent
+          onInputKey={onInputKey}
+          updateScoreCount={updateScoreCount}
+        />
+        <Keyboard onInputKey={onInputKey} />
+        <Modal isOpenModal={isOpenModal} />
+      </main>
+    </>
   )
 }
 

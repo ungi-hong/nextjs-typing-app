@@ -1,0 +1,62 @@
+.resultText {
+  opacity: 0;
+}
+
+.openModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    transform: translateX(0%);
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    animation: openLeftModal 1s ease 0s forwards;
+    z-index: 1;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -50%;
+    transform: translateX(0%);
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    animation: openRightModal 1s ease 0s forwards;
+    z-index: 1;
+  }
+
+  .resultText {
+    position: relative;
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+@keyframes openLeftModal {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes openRightModal {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
