@@ -5,8 +5,8 @@ interface Props {
   scoreCount: number
 }
 
-const Score: React.FC<Props> = ({ scoreCount }) => {
+const Score = React.memo<Props>(({ scoreCount }) => {
   return <p>スコア: {scoreCount}</p>
-}
+})
 
 export default Score

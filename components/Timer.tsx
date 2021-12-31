@@ -1,3 +1,4 @@
+import React from "react"
 import style from "styles/Timer.module.scss"
 import { useState, useEffect } from "react"
 
@@ -5,9 +6,9 @@ interface Props {
   openModal: () => void
 }
 
-const Timer: React.FC<Props> = ({ openModal }) => {
+const Timer = React.memo<Props>(({ openModal }) => {
   let timer: NodeJS.Timer
-  const [timerCount, setTimerCount] = useState(2)
+  const [timerCount, setTimerCount] = useState(60)
 
   const updateTimer = () => {
     timer =
@@ -22,12 +23,14 @@ const Timer: React.FC<Props> = ({ openModal }) => {
     }
   }
 
+  console.log("koko")
+
   useEffect(() => {
     updateTimer()
     return () => clearInterval(timer)
   }, [timerCount])
 
   return <p>残り: {`0${timerCount}`.slice(-2)}秒</p>
-}
+})
 
 export default Timer

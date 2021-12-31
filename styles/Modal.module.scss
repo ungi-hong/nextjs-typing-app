@@ -34,10 +34,14 @@
     z-index: 1;
   }
 
+  .modalContent {
+    position: relative;
+    z-index: 2;
+  }
+
   .resultText {
     position: relative;
     opacity: 1;
-    z-index: 5;
   }
 }
 

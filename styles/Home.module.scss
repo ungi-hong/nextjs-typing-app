@@ -6,3 +6,16 @@
   padding: 100px;
   overflow: hidden;
 }
+.keyList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  li {
+    margin-top: 15px;
+  }
+  li:not(:last-of-type) {
+    margin-right: 10px;
+  }
+}

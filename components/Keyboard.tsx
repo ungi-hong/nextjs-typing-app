@@ -17,7 +17,6 @@ interface KeyLineProps {
 }
 
 const KeyLine = React.memo<KeyLineProps>(({ keyLine, onInputKey = "" }) => {
-  console.log(keyLine, onInputKey)
   return (
     <>
       {keyLine.map((key) => {
@@ -39,16 +38,19 @@ const Keyboard: React.FC<Props> = ({ onInputKey }) => {
   return (
     <>
       {KeysLayout.keys.map(({ keyLineId, keyItems }) => {
-        const keyItemsInclude = keyItems.some(
-          (keyItem) => keyItem.value === onInputKey
-        )
         return (
           <ul key={keyLineId} className={style.keyList}>
-            {keyItemsInclude ? (
-              <KeyLine keyLine={keyItems} onInputKey={onInputKey} />
-            ) : (
-              <KeyLine keyLine={keyItems} />
-            )}
+            {keyItems.map((key) => {
+              return (
+                <li key={key.id}>
+                  {key.value === onInputKey ? (
+                    <KeyItem value={key.value} onInputKey={onInputKey} />
+                  ) : (
+                    <KeyItem value={key.value} />
+                  )}
+                </li>
+              )
+            })}
           </ul>
         )
       })}
