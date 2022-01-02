@@ -6,7 +6,7 @@ import KeysLayout from "utils/keysLayout"
 import KeyItem from "components/Key"
 
 const Home: NextPage = () => {
-  const [onInputKey, setInputKey] = useState("")
+  const [onInputKey, setOnInputKey] = useState("")
   const onInputKeyRef = useRef("")
   onInputKeyRef.current = onInputKey
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -28,10 +28,10 @@ const Home: NextPage = () => {
 
   const handleKeydown = (e: KeyboardEvent) => {
     if (onInputKeyRef.current === e.key) {
-      setInputKey("")
+      setOnInputKey("")
     }
     setOnInputKeyCount((onInputKeyCount) => onInputKeyCount + 1)
-    setInputKey(e.key)
+    setOnInputKey(e.key)
   }
 
   useEffect(() => {
