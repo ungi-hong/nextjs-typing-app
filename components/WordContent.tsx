@@ -50,7 +50,6 @@ const WordContent: React.FC<Props> = ({
     setCharacterCurrentIndex(characterCurrentIndex + 1)
 
     if (englishWord.length === characterCurrentIndex + 1) {
-      console.log("update")
       updateScoreCount()
     }
   }, [onInputKey])
@@ -62,8 +61,6 @@ const WordContent: React.FC<Props> = ({
     setEnglishWord(randomWord.english)
     setCharacterCurrentIndex(0)
   }, [scoreCount])
-
-  console.log(onInputKey)
 
   return (
     <div className={style.textContent}>

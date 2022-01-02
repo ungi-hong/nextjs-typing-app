@@ -23,8 +23,6 @@ const Timer = React.memo<Props>(({ openModal }) => {
     }
   }
 
-  console.log("koko")
-
   useEffect(() => {
     updateTimer()
     return () => clearInterval(timer)
