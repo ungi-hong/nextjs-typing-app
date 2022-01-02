@@ -14,11 +14,19 @@
   font-weight: 100;
 }
 
-.keySpaceBar {
-  width: 200px;
-}
-
 .onInputKey {
   background: #ccc;
   transform: translateY(2px);
+  animation: onInputKey 0.2s linear 0s forwards;
+}
+
+@keyframes onInputKey {
+  from {
+    background: #ccc;
+    transform: translateY(2px);
+  }
+  to {
+    background: #fff;
+    transform: translateY(0);
+  }
 }

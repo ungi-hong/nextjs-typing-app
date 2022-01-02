@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import style from "styles/Key.module.scss"
 import React from "react"
 
@@ -7,21 +8,22 @@ interface Props {
 }
 
 const Key = React.memo<Props>(({ value, onInputKey = "" }) => {
-  const BtnClassNames = () => {
-    const classNames = [style.key]
-    if (value === " ") {
-      classNames.push(style.keySpaceBar)
-    }
+  const [classNames, setClassNames] = useState(style.key)
+
+  useEffect(() => {
     if (onInputKey === value) {
-      classNames.push(style.onInputKey)
+      setClassNames(`${style.key} ${style.onInputKey}`)
+    } else if (!onInputKey) {
+      setClassNames(style.key)
     }
-    return classNames.join(" ")
-  }
+  }, [onInputKey])
 
   return (
-    <button className={BtnClassNames()} type="button">
-      {value.toUpperCase()}
-    </button>
+    <>
+      <button className={classNames} type="button">
+        {value.toUpperCase()}
+      </button>
+    </>
   )
 })
 

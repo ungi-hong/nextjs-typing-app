@@ -52,7 +52,6 @@ export default class KeysLayout {
         { id: "keyJ", value: "j" },
         { id: "keyK", value: "k" },
         { id: "keyL", value: "l" },
-        { id: "keyENTER", value: "Enter" },
       ],
     },
     {
@@ -66,10 +65,6 @@ export default class KeysLayout {
         { id: "keyN", value: "n" },
         { id: "keyM", value: "m" },
       ],
-    },
-    {
-      keyLineId: "fifthLine",
-      keyItems: [{ id: "keySpaceBar", value: " " }],
     },
   ]
 }

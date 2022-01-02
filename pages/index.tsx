@@ -1,15 +1,18 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import type { NextPage } from "next"
-import { Keyboard, WordContent, Score, Timer, Modal } from "components/index"
+import { WordContent, Score, Timer, Modal } from "components/index"
 import style from "styles/Home.module.scss"
 import KeysLayout from "utils/keysLayout"
 import KeyItem from "components/Key"
 
 const Home: NextPage = () => {
   const [onInputKey, setInputKey] = useState("")
+  const onInputKeyRef = useRef("")
+  onInputKeyRef.current = onInputKey
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [scoreCount, setScoreCount] = useState(0)
   const [mistakeCount, setMistakeCount] = useState(0)
+  const [onInputKeyCount, setOnInputKeyCount] = useState(0)
 
   const updateScoreCount = useCallback(() => {
     setScoreCount(scoreCount + 1)
@@ -23,15 +26,15 @@ const Home: NextPage = () => {
     setIsOpenModal(true)
   }, [setIsOpenModal])
 
-  useEffect(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      setInputKey(e.key)
-      setTimeout(() => {
-        setInputKey("")
-      }, 100)
-      return
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (onInputKeyRef.current === e.key) {
+      setInputKey("")
     }
+    setOnInputKeyCount((onInputKeyCount) => onInputKeyCount + 1)
+    setInputKey(e.key)
+  }
 
+  useEffect(() => {
     document.addEventListener("keydown", (e) => handleKeydown(e), false)
 
     return () => {
@@ -67,8 +70,12 @@ const Home: NextPage = () => {
             </ul>
           )
         })}
-        {/* <Keyboard onInputKey={onInputKey} /> */}
-        <Modal isOpenModal={isOpenModal} />
+        {/* <Modal
+          isOpenModal={isOpenModal}
+          onInputKeyCount={onInputKeyCount}
+          mistakeCount={mistakeCount}
+          scoreCount={scoreCount}
+        /> */}
       </main>
     </>
   )
