@@ -35,16 +35,22 @@ const Home: NextPage = () => {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", (e) => handleKeydown(e), false)
+    if (!isOpenModal) {
+      console.log("モーダルを開いてない")
+      document.addEventListener("keydown", handleKeydown)
+    } else {
+      console.log("モーダルを開いてる")
+      document.removeEventListener("keydown", handleKeydown)
+    }
 
     return () => {
-      document.removeEventListener("keydown", (e) => handleKeydown(e), false)
+      document.removeEventListener("keydown", handleKeydown)
     }
-  }, [])
+  }, [isOpenModal])
   return (
     <>
       <main className={style.main}>
-        {/* <Timer openModal={openModal} /> */}
+        <Timer openModal={openModal} />
         <Score scoreCount={scoreCount} />
         <WordContent
           onInputKey={onInputKey}
@@ -70,12 +76,12 @@ const Home: NextPage = () => {
             </ul>
           )
         })}
-        {/* <Modal
+        <Modal
           isOpenModal={isOpenModal}
           onInputKeyCount={onInputKeyCount}
           mistakeCount={mistakeCount}
           scoreCount={scoreCount}
-        /> */}
+        />
       </main>
     </>
   )
