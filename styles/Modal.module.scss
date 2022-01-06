@@ -1,95 +1,149 @@
+// 共通css
 .modalWrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
-
-  .modalContent {
-    position: relative;
-    z-index: 2;
-
-    .title {
-      position: relative;
-      margin: 80px 0;
-      text-align: center;
-      font-size: 30px;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .detailResultList {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      transform: translateY(20px);
-
-      .detailResultItem {
-        display: flex;
-        justify-content: center;
-
-        &:not(:last-child) {
-          margin-bottom: 60px;
-        }
-
-        .itemTitle {
-          width: 250px;
-          font-weight: bold;
-          font-size: 18px;
-        }
-
-        .itemText {
-          width: 100px;
-          font-size: 18px;
-        }
-      }
-    }
-  }
-}
-
-.openModal {
   &::before {
     content: "";
     position: absolute;
     top: 0;
     left: -50%;
-    transform: translateX(0%);
+    transform: translateX(0);
     width: 50%;
     height: 100%;
     background: #fff;
-    animation: openLeftModal 1s ease 0s forwards;
     z-index: 1;
+    transition: 1s 0.3s;
   }
   &::after {
     content: "";
     position: absolute;
     top: 0;
     right: -50%;
-    transform: translateX(0%);
+    transform: translateX(0);
     width: 50%;
     height: 100%;
     background: #fff;
-    animation: openRightModal 1s ease 0s forwards;
     z-index: 1;
+    transition: 1s 0.3s;
+  }
+}
+
+.openModal {
+  &::before {
+    transform: translateX(100%);
+  }
+  &::after {
+    transform: translateX(-100%);
+  }
+}
+
+.closeModal {
+  &::before {
+    transform: translateX(0);
+  }
+  &::after {
+    transform: translateX(0);
+  }
+}
+
+// start-content
+
+.startContentWrapper {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: 0.5s;
+  background: #fff;
+}
+
+.title {
+  margin-top: 150px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.howToContent {
+  text-align: center;
+  margin-top: 150px;
+  .noticeContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin-left: 10px;
+      font-size: 18px;
+    }
+  }
+  .howToText {
+    margin-top: 50px;
+    color: #cc0033;
+    font-size: 18px;
+    font-weight: bold;
+    animation: flashFont 1s linear infinite;
+  }
+}
+
+// end-content
+.endContentWrapper {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
+  background: #fff;
+
+  .resultTitle {
+    position: relative;
+    margin-top: 150px;
+    text-align: center;
+    font-size: 30px;
+    // opacity: 0;
+    // transform: translateY(20px);
   }
 
-  .modalContent {
-    .title {
-      opacity: 1;
-      transition: 1s 1s;
-      transform: translateY(0);
-    }
-    .detailResultList {
-      opacity: 1;
-      transition: 1s 1.5s;
-      transform: translateY(0);
+  .detailResultList {
+    margin-top: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // opacity: 0;
+    // transform: translateY(20px);
+
+    .detailResultItem {
+      display: flex;
+      justify-content: center;
+
+      &:not(:last-child) {
+        margin-bottom: 60px;
+      }
+
+      .itemTitle {
+        width: 250px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .itemText {
+        width: 100px;
+        font-size: 18px;
+      }
     }
   }
 }
 
-@keyframes openLeftModal {
+.showContent {
+  opacity: 1;
+  transition: 1s;
+}
+
+@keyframes openModal {
   from {
     transform: translateX(0%);
   }
@@ -99,12 +153,26 @@
   }
 }
 
-@keyframes openRightModal {
+@keyframes closeModal {
   from {
-    transform: translateX(0%);
+    transform: translateX(100%);
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(0%);
+  }
+}
+
+@keyframes flashFont {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

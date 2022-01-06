@@ -9,7 +9,8 @@ const Home: NextPage = () => {
   const [onInputKey, setOnInputKey] = useState("")
   const onInputKeyRef = useRef("")
   onInputKeyRef.current = onInputKey
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(true)
+  const [isStarting, setIsStarting] = useState(false)
   const [scoreCount, setScoreCount] = useState(0)
   const [mistakeCount, setMistakeCount] = useState(0)
   const [onInputKeyCount, setOnInputKeyCount] = useState(0)
@@ -27,21 +28,29 @@ const Home: NextPage = () => {
   }, [setIsOpenModal])
 
   const handleKeydown = (e: KeyboardEvent) => {
+    if (isOpenModal && !isStarting) {
+      if (e.code === "Space") {
+        setIsOpenModal(false)
+        setIsStarting(true)
+      }
+    }
+
     if (onInputKeyRef.current === e.key) {
       setOnInputKey("")
     }
+
     setOnInputKeyCount((onInputKeyCount) => onInputKeyCount + 1)
     setOnInputKey(e.key)
   }
 
   useEffect(() => {
-    if (!isOpenModal) {
-      console.log("モーダルを開いてない")
-      document.addEventListener("keydown", handleKeydown)
-    } else {
-      console.log("モーダルを開いてる")
-      document.removeEventListener("keydown", handleKeydown)
-    }
+    // if (!isOpenModal) {
+    // console.log("モーダルを開いてない")
+    document.addEventListener("keydown", handleKeydown)
+    // } else {
+    //   console.log("モーダルを開いてる")
+    //   document.removeEventListener("keydown", handleKeydown)
+    // }
 
     return () => {
       document.removeEventListener("keydown", handleKeydown)
@@ -50,7 +59,7 @@ const Home: NextPage = () => {
   return (
     <>
       <main className={style.main}>
-        <Timer openModal={openModal} />
+        {/* <Timer openModal={openModal} /> */}
         <Score scoreCount={scoreCount} />
         <WordContent
           onInputKey={onInputKey}
@@ -81,6 +90,7 @@ const Home: NextPage = () => {
           onInputKeyCount={onInputKeyCount}
           mistakeCount={mistakeCount}
           scoreCount={scoreCount}
+          isStarting={isStarting}
         />
       </main>
     </>
