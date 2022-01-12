@@ -30,7 +30,7 @@ const Timer = React.memo<Props>((props) => {
   }, [timerCount])
 
   useEffect(() => {
-    if (props.isStarting) setTimerCount(2)
+    if (props.isStarting) setTimerCount(60)
   }, [props.isStarting])
 
   return <p>残り: {`0${timerCount}`.slice(-2)}秒</p>

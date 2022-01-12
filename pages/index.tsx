@@ -12,6 +12,7 @@ const Home: NextPage = () => {
   const [scoreCount, setScoreCount] = useState(0)
   const [mistakeCount, setMistakeCount] = useState(0)
   const [onInputKeyCount, setOnInputKeyCount] = useState(0)
+  const [characterCurrentIndex, setCharacterCurrentIndex] = useState(0)
 
   const onInputKeyRef = useRef("")
   onInputKeyRef.current = onInputKey
@@ -20,31 +21,38 @@ const Home: NextPage = () => {
   isStartingRef.current = isStarting
 
   const updateScoreCount = useCallback(() => {
-    setScoreCount(scoreCount + 1)
-  }, [scoreCount])
+    setScoreCount((scoreCount) => scoreCount + 1)
+  }, [setScoreCount])
 
   const updateMistakeCount = useCallback(() => {
-    setMistakeCount(mistakeCount + 1)
-  }, [mistakeCount])
+    setMistakeCount((mistakeCount) => mistakeCount + 1)
+  }, [setMistakeCount])
 
   const openModal = useCallback(() => {
     setIsOpenModal(true)
   }, [setIsOpenModal])
 
-  const clickOnceAgainBtn = () => {
-    console.log("やってるよ")
-    if (isStarting) {
+  const countUpCharacterCurrentIndex = useCallback(() => {
+    setCharacterCurrentIndex(
+      (characterCurrentIndex) => characterCurrentIndex + 1
+    )
+  }, [setCharacterCurrentIndex])
+
+  const resetCharacterCurrentIndex = useCallback(() => {
+    setCharacterCurrentIndex(0)
+  }, [setCharacterCurrentIndex])
+
+  const handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
       setIsOpenModal(true)
       setIsStarting(false)
       setScoreCount(0)
       setMistakeCount(0)
       setOnInputKeyCount(0)
+      resetCharacterCurrentIndex()
     }
-  }
-
-  const handleKeydown = (e: KeyboardEvent) => {
     if (isOpenModal && !isStartingRef.current) {
-      if (e.code === "Space") {
+      if (e.code === "Space" || e.code === "Enter") {
         setIsOpenModal(false)
         setIsStarting(true)
       }
@@ -68,9 +76,6 @@ const Home: NextPage = () => {
     }
   }, [isOpenModal])
 
-  useEffect(() => {
-    console.log(isStarting)
-  }, [isStarting])
   return (
     <>
       <main className={style.main}>
@@ -82,6 +87,9 @@ const Home: NextPage = () => {
           updateMistakeCount={updateMistakeCount}
           mistakeCount={mistakeCount}
           scoreCount={scoreCount}
+          countUpCharacterCurrentIndex={countUpCharacterCurrentIndex}
+          resetCharacterCurrentIndex={resetCharacterCurrentIndex}
+          characterCurrentIndex={characterCurrentIndex}
         />
         {KeysLayout.keys.map(({ keyLineId, keyItems }) => {
           return (
@@ -106,7 +114,6 @@ const Home: NextPage = () => {
           mistakeCount={mistakeCount}
           scoreCount={scoreCount}
           isStarting={isStarting}
-          clickOnceAgainBtn={clickOnceAgainBtn}
         />
       </main>
     </>

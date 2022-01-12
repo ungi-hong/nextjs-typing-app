@@ -149,6 +149,15 @@
   }
 }
 
+.backHomeText {
+  margin-top: 50px;
+  text-align: center;
+  color: #cc0033;
+  font-size: 18px;
+  font-weight: bold;
+  animation: flashFont 1s linear infinite;
+}
+
 .showContent {
   opacity: 1;
 }

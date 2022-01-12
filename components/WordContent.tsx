@@ -9,6 +9,9 @@ interface Props {
   updateMistakeCount: () => void
   mistakeCount: number
   scoreCount: number
+  characterCurrentIndex: number
+  countUpCharacterCurrentIndex: () => void
+  resetCharacterCurrentIndex: () => void
 }
 
 const WordContent: React.FC<Props> = ({
@@ -17,10 +20,12 @@ const WordContent: React.FC<Props> = ({
   updateMistakeCount,
   mistakeCount,
   scoreCount,
+  characterCurrentIndex,
+  countUpCharacterCurrentIndex,
+  resetCharacterCurrentIndex,
 }) => {
   const [JapaneseWord, setJapaneseWord] = useState("")
   const [englishWord, setEnglishWord] = useState("")
-  const [characterCurrentIndex, setCharacterCurrentIndex] = useState(0)
   const [mistakeElements, setMistakeElements] = useState<JSX.Element[]>([])
 
   const onInputMistakeKey = useCallback(() => {
@@ -47,7 +52,7 @@ const WordContent: React.FC<Props> = ({
     }
 
     setMistakeElements([])
-    setCharacterCurrentIndex(characterCurrentIndex + 1)
+    countUpCharacterCurrentIndex()
 
     if (englishWord.length === characterCurrentIndex + 1) {
       updateScoreCount()
@@ -55,11 +60,12 @@ const WordContent: React.FC<Props> = ({
   }, [onInputKey])
 
   useEffect(() => {
+    // MEMO: タイピングようの文字列を表示する
     const randomWord =
       WordList.words[Math.floor(Math.random() * WordList.words.length)]
     setJapaneseWord(randomWord.japanese)
     setEnglishWord(randomWord.english)
-    setCharacterCurrentIndex(0)
+    resetCharacterCurrentIndex()
   }, [scoreCount])
 
   return (
