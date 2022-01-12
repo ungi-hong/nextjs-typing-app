@@ -8,6 +8,7 @@ type ModalStartContentProps = {
 }
 
 type ModalEndContentProps = {
+  clickOnceAgainBtn: () => void
   onInputKeyCount: number
   mistakeCount: number
   scoreCount: number
@@ -15,6 +16,7 @@ type ModalEndContentProps = {
 }
 
 type ModalProps = {
+  clickOnceAgainBtn: () => void
   isOpenModal: boolean
   onInputKeyCount: number
   mistakeCount: number
@@ -53,6 +55,9 @@ const ModalEndContent = React.memo<ModalEndContentProps>((props) => {
           <p className={style.itemText}>{props.mistakeCount}回</p>
         </li>
       </ul>
+      <button type="button" onClick={() => props.clickOnceAgainBtn()}>
+        もう一度
+      </button>
     </div>
   )
 })

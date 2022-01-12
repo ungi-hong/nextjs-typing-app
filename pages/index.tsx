@@ -7,13 +7,17 @@ import KeyItem from "components/Key"
 
 const Home: NextPage = () => {
   const [onInputKey, setOnInputKey] = useState("")
-  const onInputKeyRef = useRef("")
-  onInputKeyRef.current = onInputKey
   const [isOpenModal, setIsOpenModal] = useState(true)
   const [isStarting, setIsStarting] = useState(false)
   const [scoreCount, setScoreCount] = useState(0)
   const [mistakeCount, setMistakeCount] = useState(0)
   const [onInputKeyCount, setOnInputKeyCount] = useState(0)
+
+  const onInputKeyRef = useRef("")
+  onInputKeyRef.current = onInputKey
+
+  const isStartingRef = useRef(false)
+  isStartingRef.current = isStarting
 
   const updateScoreCount = useCallback(() => {
     setScoreCount(scoreCount + 1)
@@ -27,39 +31,50 @@ const Home: NextPage = () => {
     setIsOpenModal(true)
   }, [setIsOpenModal])
 
+  const clickOnceAgainBtn = () => {
+    console.log("やってるよ")
+    if (isStarting) {
+      setIsOpenModal(true)
+      setIsStarting(false)
+      setScoreCount(0)
+      setMistakeCount(0)
+      setOnInputKeyCount(0)
+    }
+  }
+
   const handleKeydown = (e: KeyboardEvent) => {
-    if (isOpenModal && !isStarting) {
+    if (isOpenModal && !isStartingRef.current) {
       if (e.code === "Space") {
         setIsOpenModal(false)
         setIsStarting(true)
       }
+      return
     }
 
     if (onInputKeyRef.current === e.key) {
       setOnInputKey("")
     }
-
-    setOnInputKeyCount((onInputKeyCount) => onInputKeyCount + 1)
-    setOnInputKey(e.key)
+    if (!isOpenModal) {
+      setOnInputKeyCount((onInputKeyCount) => onInputKeyCount + 1)
+      setOnInputKey(e.key)
+    }
   }
 
   useEffect(() => {
-    // if (!isOpenModal) {
-    // console.log("モーダルを開いてない")
     document.addEventListener("keydown", handleKeydown)
-    // } else {
-    //   console.log("モーダルを開いてる")
-    //   document.removeEventListener("keydown", handleKeydown)
-    // }
 
     return () => {
       document.removeEventListener("keydown", handleKeydown)
     }
   }, [isOpenModal])
+
+  useEffect(() => {
+    console.log(isStarting)
+  }, [isStarting])
   return (
     <>
       <main className={style.main}>
-        {/* <Timer openModal={openModal} /> */}
+        <Timer openModal={openModal} isStarting={isStarting} />
         <Score scoreCount={scoreCount} />
         <WordContent
           onInputKey={onInputKey}
@@ -91,6 +106,7 @@ const Home: NextPage = () => {
           mistakeCount={mistakeCount}
           scoreCount={scoreCount}
           isStarting={isStarting}
+          clickOnceAgainBtn={clickOnceAgainBtn}
         />
       </main>
     </>

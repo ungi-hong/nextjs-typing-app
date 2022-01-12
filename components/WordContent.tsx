@@ -64,7 +64,6 @@ const WordContent: React.FC<Props> = ({
 
   return (
     <div className={style.textContent}>
-      <p>スタート！</p>
       <p>
         <span className={style.clearCharacter}>
           {englishWord.slice(0, characterCurrentIndex)}

@@ -15,7 +15,7 @@
     height: 100%;
     background: #fff;
     z-index: 1;
-    transition: 1s 0.3s;
+    transition: 0.8s 0.3s ease;
   }
   &::after {
     content: "";
@@ -27,7 +27,7 @@
     height: 100%;
     background: #fff;
     z-index: 1;
-    transition: 1s 0.3s;
+    transition: 0.8s 0.3s ease;
   }
 }
 
@@ -58,7 +58,6 @@
   height: 100%;
   opacity: 0;
   transition: 0.5s;
-  background: #fff;
 }
 
 .title {
@@ -96,51 +95,62 @@
   width: 100%;
   height: 100%;
   opacity: 0;
+}
 
-  background: #fff;
+.resultTitle {
+  position: relative;
+  margin-top: 80px;
+  text-align: center;
+  font-size: 30px;
+  opacity: 0;
+  transition: 1s 1s ease;
+  transform: translateY(20px);
 
-  .resultTitle {
-    position: relative;
-    margin-top: 150px;
-    text-align: center;
-    font-size: 30px;
-    // opacity: 0;
-    // transform: translateY(20px);
+  .showContent & {
+    // 親要素指定
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detailResultList {
+  margin-top: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: 1s 1.5s ease;
+  transform: translateY(20px);
+
+  .showContent & {
+    // 親要素指定
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .detailResultList {
-    margin-top: 80px;
-    width: 100%;
+  .detailResultItem {
     display: flex;
-    flex-direction: column;
-    // opacity: 0;
-    // transform: translateY(20px);
+    justify-content: center;
 
-    .detailResultItem {
-      display: flex;
-      justify-content: center;
+    &:not(:last-child) {
+      margin-bottom: 60px;
+    }
 
-      &:not(:last-child) {
-        margin-bottom: 60px;
-      }
+    .itemTitle {
+      width: 250px;
+      font-weight: bold;
+      font-size: 18px;
+    }
 
-      .itemTitle {
-        width: 250px;
-        font-weight: bold;
-        font-size: 18px;
-      }
-
-      .itemText {
-        width: 100px;
-        font-size: 18px;
-      }
+    .itemText {
+      width: 100px;
+      font-size: 18px;
     }
   }
 }
 
 .showContent {
   opacity: 1;
-  transition: 1s;
 }
 
 @keyframes openModal {

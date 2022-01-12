@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 
 interface Props {
   openModal: () => void
+  isStarting: boolean
 }
 
-const Timer = React.memo<Props>(({ openModal }) => {
+const Timer = React.memo<Props>((props) => {
   let timer: NodeJS.Timer
-  const [timerCount, setTimerCount] = useState(60)
+  const [timerCount, setTimerCount] = useState(0)
 
   const updateTimer = () => {
     timer =
@@ -19,7 +20,7 @@ const Timer = React.memo<Props>(({ openModal }) => {
 
     if (timerCount === 0) {
       clearInterval(timer)
-      openModal()
+      props.openModal()
     }
   }
 
@@ -27,6 +28,10 @@ const Timer = React.memo<Props>(({ openModal }) => {
     updateTimer()
     return () => clearInterval(timer)
   }, [timerCount])
+
+  useEffect(() => {
+    if (props.isStarting) setTimerCount(2)
+  }, [props.isStarting])
 
   return <p>残り: {`0${timerCount}`.slice(-2)}秒</p>
 })
